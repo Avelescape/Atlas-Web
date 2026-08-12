@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation des Maquettes | Atlas Web</title>
+    
+    <!-- Polices Google Fonts (Style 997.fr : Sans-Serif + Serif Italique + Monospace) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #090a0f;
+            --surface-color: #12141c;
+            --surface-hover: #181b26;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.22);
+            --text-primary: #f3f4f6;
+            --text-secondary: #8c92a4;
+            --accent-white: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.03);
+            
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Marges latérales adaptatives pour occuper tout l'écran */
+            padding: 0 clamp(20px, 4vw, 60px);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Filigrane en arrière-plan */
+        .bg-watermark {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(10rem, 28vw, 30rem);
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.018);
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Header pleine largeur */
+        header {
+            width: 100%;
+            padding: 32px 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-primary);
+            stroke-width: 2;
+        }
+
+        /* Main Content pleine largeur */
+        main {
+            width: 100%;
+            margin: 50px auto 60px;
+            position: relative;
+            z-index: 10;
+            flex-grow: 1;
+        }
+
+        .hero {
+            margin-bottom: 56px;
+            text-align: left;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: block;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .hero h1 em {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            color: #ffffff;
+            padding-right: 0.1em;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .client-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 2px;
+        }
+
+        /* Grille pleine largeur s'adaptant à l'écran */
+        .mockups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .mockup-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-card:hover {
+            transform: translateY(-4px);
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+
+        /* Boutons d'action */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--accent-white);
+            color: #000000;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 14px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: scale(0.99);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Footer pleine largeur */
+        footer {
+            width: 100%;
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        /* Media Queries pour le Responsive Mobile/Tablette */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .mockups-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Filigrane d'arrière-plan -->
+    <div class="bg-watermark" aria-hidden="true">ATLAS</div>
+
+    <header>
+        <a href="#" class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                <path d="M2 12h20"/>
+            </svg>
+            <span>Atlas Web</span>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="section-label">(01) · Présentation du projet</span>
+            <h1>Vos maquettes <em>sur mesure.</em></h1>
+            <p>Découvrez les différentes pistes créatives conçues par Atlas Web pour le projet de <span class="client-name">[Nom du Client]</span>.</p>
+        </section>
+
+        <section class="mockups-grid">
+            <!-- Maquette 1 -->
+            <article class="mockup-card">
+                <div>
+                    <span class="card-number">(01) · OPTION 01</span>
+                    <h2 class="card-title">Piste Immersive</h2>
+                    <p class="card-description">Une approche dynamique axée sur une identité visuelle marquante, une typographie affirmée et une navigation captivante.</p>
+                </div>
+                <a href="HTTPS://VOTRE-LIEN-MAQUETTE-1.COM" target="_blank" rel="noopener" class="btn">
+                    <span>Explorer la maquette</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </article>
+
+            <!-- Maquette 2 -->
+            <article class="mockup-card">
+                <div>
+                    <span class="card-number">(02) · OPTION 02</span>
+                    <h2 class="card-title">Piste Épurée</h2>
+                    <p class="card-description">Une structure minimaliste et aérée privilégiant la clarté de lecture, la rapidité d'accès aux informations et l'élégance.</p>
+                </div>
+                <a href="HTTPS://VOTRE-LIEN-MAQUETTE-2.COM" target="_blank" rel="noopener" class="btn">
+                    <span>Explorer la maquette</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </article>
+
+            <!-- Maquette 3 -->
+            <article class="mockup-card">
+                <div>
+                    <span class="card-number">(03) · OPTION 03</span>
+                    <h2 class="card-title">Piste Conversion</h2>
+                    <p class="card-description">Une disposition alternative focalisée sur la hiérarchie des contenus et la mise en valeur des appels à l'action principaux.</p>
+                </div>
+                <a href="HTTPS://VOTRE-LIEN-MAQUETTE-3.COM" target="_blank" rel="noopener" class="btn">
+                    <span>Explorer la maquette</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 ATLAS WEB — CONCEPTION & DÉVELOPPEMENTS</p>
+        <p>AGENCE DE CONVERSION WEB</p>
+    </footer>
+
+</body>
+</html>
