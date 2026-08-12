@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NINIA — Peintre & Céramiste</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #121110;
+            --bg-card: #1c1a18;
+            --bg-warm: #26221d;
+            --gold-accent: #c5a059;
+            --gold-light: #dfba73;
+            --text-light: #ece3d5;
+            --text-muted: #a69b8d;
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-title);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 17, 16, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            letter-spacing: 6px;
+            color: var(--text-light);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            margin-top: -2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        nav a:hover {
+            color: var(--gold-accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--gold-accent);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            padding: 140px 50px 80px 50px;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 70% 30%, #2a241c 0%, #121110 70%);
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h2 {
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            max-width: 480px;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 14px 32px;
+            border: 1px solid var(--gold-accent);
+            color: var(--gold-accent);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--gold-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-img-main {
+            width: 60%;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border-radius: 2px;
+        }
+
+        .hero-img-secondary {
+            width: 45%;
+            margin-top: 60px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border-radius: 2px;
+        }
+
+        /* --- SECTION TITLE --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h3 {
+            font-size: 2.8rem;
+            color: var(--text-light);
+        }
+
+        .section-header .divider {
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold-accent);
+            margin: 15px auto 0 auto;
+        }
+
+        /* --- GALERIE / COLLECTIONS --- */
+        .gallery-section {
+            padding: 100px 50px;
+            background-color: var(--bg-dark);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .art-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            padding: 15px;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .art-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+
+        .art-img-wrapper {
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/5;
+        }
+
+        .art-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.95);
+            transition: transform 0.6s ease;
+        }
+
+        .art-card:hover .art-img-wrapper img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+
+        .art-info {
+            padding: 20px 10px 10px 10px;
+            text-align: center;
+        }
+
+        .art-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+        }
+
+        .art-info p {
+            font-size: 0.85rem;
+            color: var(--gold-accent);
+            letter-spacing: 1px;
+        }
+
+        /* --- DÉMARCHE ARTISTIQUE --- */
+        .about-section {
+            padding: 120px 50px;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-warm) 50%, var(--bg-dark) 100%);
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-quote {
+            border-left: 2px solid var(--gold-accent);
+            padding-left: 30px;
+        }
+
+        .about-quote blockquote {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            line-height: 1.3;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-section {
+            padding: 100px 50px;
+            background-color: var(--bg-dark);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            padding: 50px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gold-accent);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold-accent);
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-submit button {
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 900px) {
+            header {
+                padding: 15px 25px;
+            }
+
+            nav {
+                display: none; /* À activer en JS pour un menu burger si souhaité */
+            }
+
+            .hero {
+                padding: 120px 25px 60px 25px;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-text h2 {
+                font-size: 2.8rem;
+            }
+
+            .hero-text p {
+                margin: 0 auto 30px auto;
+            }
+
+            .hero-visual {
+                justify-content: center;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="logo">
+            <h1>NINIA</h1>
+            <span>Peintre & Céramiste</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#collections">Œuvres</a></li>
+                <li><a href="#demarche">Démarche</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h2>Des paysages intérieurs</h2>
+                <p>Une recherche autour de la matière, du vivant et de la lumière. Peintures texturales et pièces uniques sculptées.</p>
+                <a href="#collections" class="btn-gold">Découvrir les collections</a>
+            </div>
+            <div class="hero-visual">
+                <!-- Remplacer les src par vos images réelles : oeuvre1.jpg et oeuvre2.jpg -->
+                <img src="oeuvre1.jpg" alt="Peinture paysage abstrait NINIA" class="hero-img-main">
+                <img src="oeuvre2.jpg" alt="Sculpture arbre texturé NINIA" class="hero-img-secondary">
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIE DES COLLECTIONS -->
+    <section id="collections" class="gallery-section">
+        <div class="section-header">
+            <h3>Collections Récentes</h3>
+            <div class="divider"></div>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Œuvre 1 -->
+            <div class="art-card">
+                <div class="art-img-wrapper">
+                    <img src="oeuvre1.jpg" alt="Rivage Doré - NINIA">
+                </div>
+                <div class="art-info">
+                    <h4>Rivage Lumineux</h4>
+                    <p>Huile & pigment or sur toile — 120 x 80 cm</p>
+                </div>
+            </div>
+
+            <!-- Œuvre 2 -->
+            <div class="art-card">
+                <div class="art-img-wrapper">
+                    <img src="oeuvre2.jpg" alt="Arbre de Vie - NINIA">
+                </div>
+                <div class="art-info">
+                    <h4>L'Arbre-Matière</h4>
+                    <p>Technique mixte & textures — 150 x 100 cm</p>
+                </div>
+            </div>
+
+            <!-- Œuvre 3 (Céramique) -->
+            <div class="art-card">
+                <div class="art-img-wrapper">
+                    <!-- Image d'illustration céramique / poterie ocre -->
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=800" alt="Vase Céramique NINIA">
+                </div>
+                <div class="art-info">
+                    <h4>Vase Organique I</h4>
+                    <p>Grès pyrité & émail brut</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DÉMARCHE ARTISTIQUE -->
+    <section id="demarche" class="about-section">
+        <div class="about-container">
+            <div class="about-quote">
+                <blockquote>« Sculpter la toile, façonner la terre, révéler la dorure cachée dans l'ombre. »</blockquote>
+            </div>
+            <div class="about-text">
+                <p>L'œuvre de NINIA s'articule autour du relief, des nuances d'ocre, de terre et de la feuille d'or. Chaque création est une exploration sensorielle où la lumière interagit directement avec les reliefs de la matière.</p>
+                <p>Inspirée par la nature brute, les rivages profonds et les textures végétales, elle associe peinture grand format et céramiques sculpturales pour créer un univers intemporel, chaleureux et sobrement luxueux.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULAIRE DE CONTACT -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h3>Acquisitions & Renseignements</h3>
+            <div class="divider"></div>
+        </div>
+
+        <div class="contact-container">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Nom complet</label>
+                    <input type="text" id="name" name="name" required placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Votre message / Demande de catalogue</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Précisez l'œuvre ou votre demande..."></textarea>
+                </div>
+                <div class="form-submit">
+                    <button type="submit" class="btn-gold">Envoyer la demande</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 NINIA. Tous droits réservés. Artiste Peintre & Céramiste.</p>
+    </footer>
+
+</body>
+</html>
