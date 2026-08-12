@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NINIA — Artiste Peintre & Sculptrice Contemporaine</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           VARIABLES & DESIGN SYSTEM
+           ========================================== */
+        :root {
+            --bg-dark: #181716;
+            --bg-card: #23211F;
+            --bg-overlay: rgba(24, 23, 22, 0.85);
+            --accent-gold: #C8A261;
+            --accent-gold-light: #DFB875;
+            --text-main: #ECE8E1;
+            --text-muted: #A39E93;
+            --border-color: rgba(200, 162, 97, 0.2);
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* ==========================================
+           TYPOGRAPHIE & REUTILISABLE
+           ========================================== */
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-title);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .gold-text {
+            color: var(--accent-gold);
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .section-padding {
+            padding: 120px 8%;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 80px 6%;
+            }
+        }
+
+        /* ==========================================
+           NAVIGATION
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            background: linear-gradient(to bottom, rgba(24, 23, 22, 0.9), transparent);
+        }
+
+        header.scrolled {
+            padding: 18px 8%;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .mobile-toggle span {
+            width: 28px;
+            height: 1px;
+            background-color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        /* ==========================================
+           SECTION HERO
+           ========================================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 8%;
+            background: linear-gradient(to right, rgba(24,23,22,0.92) 30%, rgba(24,23,22,0.4)), url('oeuvre1.jpg') center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .hero-manifesto {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-left: 2px solid var(--accent-gold);
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 16px 36px;
+            border: 1px solid var(--accent-gold);
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            transition: var(--transition);
+            position: relative;
+            background: transparent;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px rgba(200, 162, 97, 0.3);
+        }
+
+        /* ==========================================
+           SECTION L'UNIVERS
+           ========================================== */
+        .univers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .univers-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .univers-quote {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--accent-gold-light);
+            font-style: italic;
+            margin: 30px 0;
+            line-height: 1.4;
+        }
+
+        .univers-image-wrapper {
+            position: relative;
+        }
+
+        .univers-image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            filter: grayscale(10%) contrast(105%);
+            box-shadow: 20px 20px 0px rgba(200, 162, 97, 0.08);
+        }
+
+        /* ==========================================
+           SECTION PEINTURES & GALERIE
+           ========================================== */
+        .gallery-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .art-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .art-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+        }
+
+        .art-card-img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .art-card:hover .art-card-img {
+            scale: 1.02;
+        }
+
+        .art-card-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .art-card-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================
+           OEUVRES MAJEURES (FOCUS EDITORIAL)
+           ========================================== */
+        .major-work {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 100px;
+            background: radial-gradient(circle at center, rgba(35,33,31,0.6) 0%, var(--bg-dark) 100%);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .major-work:nth-child(even) {
+            grid-template-columns: 0.8fr 1.2fr;
+        }
+
+        .major-work:nth-child(even) .major-work-img {
+            order: 2;
+        }
+
+        .major-work-img img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .major-work-details ul {
+            list-style: none;
+            margin: 25px 0;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .major-work-details li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .major-work-details li span:last-child {
+            color: var(--text-main);
+        }
+
+        /* ==========================================
+           SECTION SCULPTURES
+           ========================================== */
+        .sculptures-section {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sculpture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .sculpture-item {
+            position: relative;
+            text-align: center;
+        }
+
+        .sculpture-box {
+            height: 480px;
+            background: #1a1918;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .sculpture-box:hover {
+            border-color: var(--accent-gold);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* ==========================================
+           A PROPOS
+           ========================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-portrait {
+            position: relative;
+        }
+
+        .about-portrait-box {
+            width: 100%;
+            height: 550px;
+            background: url('oeuvre2.jpg') center/cover;
+            filter: sepia(30%) contrast(110%) brightness(80%);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ==========================================
+           ACTUALITES & EXPOSITIONS
+           ========================================== */
+        .exo-list {
+            margin-top: 40px;
+        }
+
+        .exo-item {
+            display: grid;
+            grid-template-columns: 150px 1fr auto;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .exo-item:hover {
+            padding-left: 15px;
+            border-color: var(--accent-gold);
+        }
+
+        .exo-date {
+            color: var(--accent-gold);
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+        }
+
+        .exo-title {
+            font-size: 1.2rem;
+        }
+
+        .exo-location {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           CONTACT & FOOTER
+           ========================================== */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        footer {
+            padding: 40px 8%;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================
+           RESPONSIVE MOBILE
+           ========================================== */
+        @media (max-width: 992px) {
+            .univers, .about-grid, .contact-container, .major-work, .major-work:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .major-work:nth-child(even) .major-work-img {
+                order: 0;
+            }
+
+            .sculpture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exo-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 75%;
+                background-color: var(--bg-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                border-left: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header id="header">
+        <a href="#" class="logo">NINIA</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#univers">L'Univers</a></li>
+            <li><a href="#peintures">Peintures</a></li>
+            <li><a href="#sculptures">Sculptures</a></li>
+            <li><a href="#majeures">Œuvres Majeures</a></li>
+            <li><a href="#apropos">À Propos</a></li>
+            <li><a href="#contact">Atelier & Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="subtitle">Artiste Peintre & Sculptrice</span>
+            <h1>L'Étreinte de la Matière & de la Lumière</h1>
+            <p class="hero-manifesto">"Sculpter le vide, révéler la dorure enfouie sous l'écorce du temps et faire vibrer la toile comme un paysage organique."</p>
+            <a href="#peintures" class="btn-gold">Découvrir les Créations</a>
+        </div>
+    </section>
+
+    <!-- SECTION L'UNIVERS -->
+    <section class="section-padding univers" id="univers">
+        <div class="univers-text">
+            <span class="subtitle">Philosophie & Démarche</span>
+            <h2>Entre puissance minérale et délicatesse dorée</h2>
+            <p>Dans l'intimité de son atelier, Ninia façonne une œuvre où la matière brute rencontre l'élégance poétique. Ses toiles et sculptures célèbrent le dialogue entre les éléments : reliefs volcaniques, horizons sablonneux et éclats d'or vieilli.</p>
+            <div class="univers-quote">
+                "Chaque relief est une empreinte du temps, chaque fragment doré une lumière retrouvée."
+            </div>
+            <p>Manipulant les enduits, les pigments naturels, la feuille d'or et les résines brutes, elle compose des œuvres vivantes qui évoluent au gré de la lumière du jour.</p>
+        </div>
+        <div class="univers-image-wrapper">
+            <img src="oeuvre1.jpg" alt="Atelier et démarche artistique de Ninia">
+        </div>
+    </section>
+
+    <!-- GALERIE PEINTURES -->
+    <section class="section-padding" id="peintures">
+        <div class="gallery-header">
+            <span class="subtitle">Galerie Sélective</span>
+            <h2>Œuvres Picturales</h2>
+            <p style="color: var(--text-muted);">Une exploration texturée des paysages intérieurs et des horizons marins.</p>
+        </div>
+
+        <div class="masonry-grid">
+            <!-- CARTE 1 -->
+            <div class="art-card">
+                <img src="oeuvre1.jpg" alt="Symphonie Côtière - Ninia" class="art-card-img">
+                <div class="art-card-info">
+                    <h3>Symphonie Côtière</h3>
+                    <p>Technique mixte, enduit & feuille d'or — 120 x 90 cm</p>
+                </div>
+            </div>
+
+            <!-- CARTE 2 -->
+            <div class="art-card">
+                <img src="oeuvre2.jpg" alt="L'Arbre de Vie - Ninia" class="art-card-img">
+                <div class="art-card-info">
+                    <h3>L'Écorce d'Éternité</h3>
+                    <p>Relief minéral & pigments ocre — 150 x 100 cm</p>
+                </div>
+            </div>
+
+            <!-- CARTE 3 (Exemple additionnel) -->
+            <div class="art-card">
+                <img src="oeuvre1.jpg" alt="Horizon Brumeux - Ninia" class="art-card-img" style="filter: hue-rotate(15deg) contrast(110%);">
+                <div class="art-card-info">
+                    <h3>Sable & Feuille d'Or</h3>
+                    <p>Technique mixte sur châssis lin — 100 x 100 cm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OEUVRES MAJEURES (FOCUS EDITORIAL) -->
+    <section class="section-padding" id="majeures" style="background-color: #131211;">
+        <div class="gallery-header">
+            <span class="subtitle">Mise en Lumière</span>
+            <h2>Focus sur les Pièces Maîtresses</h2>
+        </div>
+
+        <!-- PIECE 1 -->
+        <div class="major-work">
+            <div class="major-work-img">
+                <img src="oeuvre1.jpg" alt="Focus Symphonie Côtière">
+            </div>
+            <div class="major-work-details">
+                <span class="subtitle">Collection Horizon</span>
+                <h2>Symphonie Côtière</h2>
+                <p style="color: var(--text-muted);">Capturant la jonction subtile entre l'eau turquoise, la terre dorée et les nuages d'orage. Une œuvre d'une grande profondeur matérielle où la lumière accroche les pigments dorés.</p>
+                <ul>
+                    <li><span>Année de création</span> <span>2024</span></li>
+                    <li><span>Techniques</span> <span>Enduit structuré, pigments, feuille d'or</span></li>
+                    <li><span>Dimensions</span> <span>120 cm x 90 cm</span></li>
+                    <li><span>Statut</span> <span style="color: var(--accent-gold);">Collection Privée</span></li>
+                </ul>
+                <a href="#contact" class="btn-gold">Demander une acquisition similaire</a>
+            </div>
+        </div>
+
+        <!-- PIECE 2 -->
+        <div class="major-work">
+            <div class="major-work-img">
+                <img src="oeuvre2.jpg" alt="Focus L'Écorce d'Éternité">
+            </div>
+            <div class="major-work-details">
+                <span class="subtitle">Collection Arborescence</span>
+                <h2>L'Écorce d'Éternité</h2>
+                <p style="color: var(--text-muted);">Un hommage à la sculpture végétale. Le plâtre minéral et la matière travaillée au couteau donnent naissance à un arbre majestueux, vibrant entre ombre et reflets cuivrés.</p>
+                <ul>
+                    <li><span>Année de création</span> <span>2025</span></li>
+                    <li><span>Techniques</span> <span>Sculpture bas-relief sur toile, patine bronze</span></li>
+                    <li><span>Dimensions</span> <span>150 cm x 100 cm</span></li>
+                    <li><span>Statut</span> <span style="color: var(--accent-gold);">Disponible en Galerie</span></li>
+                </ul>
+                <a href="#contact" class="btn-gold">Renseignements & Tarif</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION SCULPTURES -->
+    <section class="section-padding sculptures-section" id="sculptures">
+        <div class="gallery-header">
+            <span class="subtitle">Tridimensionnalité</span>
+            <h2>Sculptures & Volumes</h2>
+            <p style="color: var(--text-muted);">Matières façonnées, bronzes patinés et stèles organiques.</p>
+        </div>
+
+        <div class="sculpture-grid">
+            <div class="sculpture-item">
+                <div class="sculpture-box">
+                    <img src="oeuvre2.jpg" alt="Sculpture Totem" style="max-height: 80%; width: auto; opacity: 0.85;">
+                </div>
+                <h3>Totem Minéral I</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Grès, inclusions dorées & socle acier</p>
+            </div>
+            <div class="sculpture-item">
+                <div class="sculpture-box">
+                    <img src="oeuvre1.jpg" alt="Sculpture Bronze" style="max-height: 80%; width: auto; opacity: 0.85;">
+                </div>
+                <h3>Éclosion d'Or</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Bronze à la cire perdue & patine sombre</p>
+            </div>
+            <div class="sculpture-item">
+                <div class="sculpture-box">
+                    <img src="oeuvre2.jpg" alt="Sculpture Relief" style="max-height: 80%; width: auto; opacity: 0.85;">
+                </div>
+                <h3>Fragment d'Écorce</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Bas-relief sur bois carbonisé</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION A PROPOS -->
+    <section class="section-padding" id="apropos">
+        <div class="about-grid">
+            <div class="about-portrait">
+                <div class="about-portrait-box"></div>
+            </div>
+            <div>
+                <span class="subtitle">Le Parcours</span>
+                <h2>Ninia, l'instinct de la matière</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">
+                    Guidée par une sensibilité brute et une quête permanente d'harmonie, Ninia développe depuis plusieurs années un langage plastique singulier. Son travail s'articule autour du contraste : la rugosité de la pierre et du plâtre face à la préciosité des dorures.
+                </p>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">
+                    Exposée dans plusieurs galeries et présente au sein de collections privées en France et à l'international, elle conçoit chaque pièce comme une invitation à la contemplation et au toucher.
+                </p>
+                <a href="#contact" class="btn-gold">Prendre Rendez-vous à l'Atelier</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTUALITES / EXPOSITIONS -->
+    <section class="section-padding" style="background-color: var(--bg-card); border-top: 1px solid var(--border-color);">
+        <div class="gallery-header">
+            <span class="subtitle">Agenda</span>
+            <h2>Expositions & Projets</h2>
+        </div>
+
+        <div class="exo-list">
+            <div class="exo-item">
+                <div class="exo-date">OCT. 2026</div>
+                <div>
+                    <div class="exo-title">Exposition Personnelle — "Lumières d'Écorce"</div>
+                    <div class="exo-location">Galerie d'Art Contemporain, Paris</div>
+                </div>
+                <a href="#contact" style="color: var(--accent-gold); text-decoration: none; font-size: 0.85rem;">Invitation →</a>
+            </div>
+
+            <div class="exo-item">
+                <div class="exo-date">MAI 2026</div>
+                <div>
+                    <div class="exo-title">Salon International des Arts Plastiques</div>
+                    <div class="exo-location">Grand Palais Éphémère, Paris</div>
+                </div>
+                <a href="#contact" style="color: var(--accent-gold); text-decoration: none; font-size: 0.85rem;">En savoir plus →</a>
+            </div>
+
+            <div class="exo-item">
+                <div class="exo-date">PERMANENT</div>
+                <div>
+                    <div class="exo-title">Présentation des Œuvres en Galerie</div>
+                    <div class="exo-location">Atelier Privé & Collection Particulière</div>
+                </div>
+                <a href="#contact" style="color: var(--accent-gold); text-decoration: none; font-size: 0.85rem;">Visite Privée →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION CONTACT -->
+    <section class="section-padding" id="contact">
+        <div class="contact-container">
+            <div>
+                <span class="subtitle">Contact & Collection</span>
+                <h2>Entrer dans l'Atelier</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">
+                    Pour toute demande d'acquisition, de commande sur-mesure ou pour planifier une visite privée au sein de l'atelier, veuillez utiliser le formulaire ci-contre.
+                </p>
+                <div style="margin-bottom: 15px; color: var(--text-main);">
+                    <strong>Atelier Ninia</strong><br>
+                    <span style="color: var(--text-muted);">Sur rendez-vous uniquement</span>
+                </div>
+                <div style="color: var(--accent-gold);">
+                    contact@ninia-art.com
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Votre message a été envoyé avec succès.');">
+                <input type="text" placeholder="Votre Nom / Collectionneur" required>
+                <input type="email" placeholder="Votre Adresse Email" required>
+                <input type="text" placeholder="Sujet (Acquisition, Visite, Presse...)">
+                <textarea rows="5" placeholder="Votre Message..." required></textarea>
+                <button type="submit" class="btn-gold" style="width: 100%; cursor: pointer;">Envoyer la Demande</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>© 2026 NINIA. Tous droits réservés.</div>
+        <div>Haute Création Artistique & Sculpture Contemporaine</div>
+    </footer>
+
+    <!-- JAVASCRIPT ANIMATIONS -->
+    <script>
+        // Effet header scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Menu Mobile
+        const toggleBtn = document.getElementById('mobile-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Fermeture du menu mobile au clic sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
